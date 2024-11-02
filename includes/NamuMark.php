@@ -23,7 +23,6 @@ class NamuMark
 
 	function __construct($wtext, $title)
 	{
-
 		$this->list_tag = array(
 			array('*', 'ul'),
 			array('1.', 'ol'),
@@ -54,7 +53,6 @@ class NamuMark
 				'close' => '</nowiki>',
 				'multiline' => true,
 				'processor' => array($this, 'renderProcessor')),
-
 		);
 
 		$this->single_bracket = array(
@@ -124,6 +122,9 @@ class NamuMark
 				'multiline' => false,
 				'processor' => array($this, 'textProcessor')),
 		);
+
+		$this->biggerHandler = array('1.289','1.389','1.481','1.574','1.667');
+		$this->smallerHandler = array('.926','.833','.742','.648','.622');
 
 		$this->WikiPage = $wtext;
 		$this->title = $title;
@@ -602,6 +603,7 @@ class NamuMark
 
 				$tdAttr = $tdStyleList = array();
 				$trAttr = $trStyleList = array();
+				$tdNodark = false;
 
 				if ($simpleColspan != 0) {
 					$tdAttr['colspan'] = $simpleColspan + 1;
@@ -677,20 +679,35 @@ class NamuMark
 									$tdStyleList['vertical-align'] = 'bottom';
 									break;
 								}
-							} elseif (preg_match('/^#(?:([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|([A-Za-z]+))$/', $prop, $span)) {
-								$tdStyleList['background-color'] = $span[1] ? '#' . $span[1] : $span[2];
-								break;
+							// } elseif (preg_match('/^#(?:([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|([A-Za-z]+))$/', $prop, $span)) {
+							// 	$tdStyleList['background-color'] = $span[1] ? '#' . $span[1] : $span[2];
+							// 	break;
+							// 지원 중단
 							} elseif (preg_match('/^([^=]+)=(?|"(.*)"|\'(.*)\'|(.*))$/', $prop, $match)) {
 								switch ($match[1]) {
 									case 'bgcolor':
 									case 'colbgcolor':
-										$tdStyleList['background-color'] = $match[2];
+										if (preg_match('/^#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+))(?:,#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+)))$/', $match[2], $matchcolor)) {
+											// if (!$matchcolor[2] == null) {
+											// 	$tdNodark = true;
+											// 	$tdStyleList['background-color'] = $matchcolor[2];
+											// }
+											$tdStyleList['background-color'] = $matchcolor[1];
+										}
 										break;
 									case 'colcolor':
-										$tdStyleList['color'] = $match[2];
+										if (preg_match('/^#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+))(?:,#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+)))$/', $match[2], $matchcolor)) {
+											// if ($tdStyleList['skin-theme-clientpref-night'])
+											// 	$tdStyleList['color'] = $matchcolor[2];
+											$tdStyleList['color'] = $matchcolor[1];
+										}
 										break;
 									case 'rowbgcolor':
-										$trStyleList['background-color'] = $match[2];
+										if (preg_match('/^#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+))(?:,#(?|([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})|(A-Za-z]+)))$/', $match[2], $matchcolor)) {
+											// if ($tdStyleList['skin-theme-clientpref-night'])
+											// 	$tdStyleList['background-color'] = $matchcolor[2];
+											$tdStyleList['background-color'] = $matchcolor[1];
+										}
 										break;
 									case 'width':
 										$tdStyleList['width'] = $match[2];

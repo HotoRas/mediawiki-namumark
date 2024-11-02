@@ -59,14 +59,12 @@ class NamuMarkExtended extends NamuMark
 			} elseif (self::startsWithi($text, '#!folding') && preg_match('/#!folding ([^\n]*)\n(((((.*)(\n)?)+)))/', $text, $match)) {
 				return '<div class="nm-folding"><span class="text">' . $match[1] . '</span><div class="folding-content" style="display: none;">' . preg_replace('/#!folding ([^\n]*)/', '', $text) . '</div></div>';
 			} elseif (preg_match('/^\+([1-5])(.*)$/sm', $text, $size)) {
-				for ($i = 1; $i <= $size[1]; $i++) {
-					if (isset($big_before) && isset($big_after)) {
-						$big_before .= '<big>';
-						$big_after .= '</big>';
-					} else {
-						$big_before = '<big>';
-						$big_after = '</big>';
-					}
+				if(isset($big_before) && isset($big_after)) {
+					$big_before .= '<big style="font-size=' + $this->biggerHandler[$size[1]-1] + 'em">';
+					$big_after .= '</big>';
+				} else {
+					$big_before = '<big style="font-size=' + $this->biggerHandler[$size[1]-1] + 'em">';
+					$big_after = '</big>';
 				}
 
 				$lines = explode("\n", $size[2]);
@@ -82,15 +80,13 @@ class NamuMarkExtended extends NamuMark
 				}
 
 				return $big_before . $this->formatParser($size[2]) . $big_after;
-			} elseif (preg_match('/^\-([1-5])(.*)$/sm', $text, $size)) {
-				for ($i = 1; $i <= $size[1]; $i++) {
-					if (isset($small_before) && isset($small_after)) {
-						$small_before .= '<small>';
-						$small_after .= '</small>';
-					} else {
-						$small_before = '<small>';
-						$small_after = '</small>';
-					}
+			} elseif (preg_match('/^\-([1-5])(.*)$/sm', $text, $size)) {				
+				if(isset($small_before) && isset($small_after)) {
+					$small_before .= '<small style="font-size=' + $this->smallerHandler[$size[1]-1] + 'em">';
+					$small_after .= '</small>';
+				} else {
+					$small_before = '<small style="font-size=' + $this->smallerHandler[$size[1]-1] + 'em">';
+					$small_after = '</small>';
 				}
 
 				$lines = explode("\n", $size[2]);

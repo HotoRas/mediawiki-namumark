@@ -1,16 +1,16 @@
 {
 	"name": "NamuMark",
 	"author": [
-		"[https://github.com/dodawiki/mediawiki-namumark/graphs/contributors ...]"
+		"[https://github.com/HotoRas/mediawiki-namumark/graphs/contributors ...]"
 	],
-	"descriptionmsg": "namumark-description",
+	"descriptionmsg": "Adds Namuwiki markup to be rendered on MediaWiki",
 	"license-name": "AGPL-3.0-only",
 	"manifest_version": 2,
 	"requires": {
 		"MediaWiki": ">=1.32"
 	},
 	"type": "parserhook",
-	"url": "https://github.com/dodawiki/mediawiki-namumark",
+	"url": "https://github.com/HotoRas/mediawiki-namumark",
 	"version": "10.4",
 	"MessagesDirs": {
 		"NamuMark": [
