@@ -2,7 +2,7 @@
 
 **나무마크**는 [나무위키](https://namu.wiki)에서 사용하는 [문법](https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%ED%8E%B8%EC%A7%91%20%EB%8F%84%EC%9B%80%EB%A7%90) 중 일부를 미디어위키 확장 기능으로 구현한 것입니다.
 
-원 구현체: [php-namumark](https://github.com/koreapyj/php-namumark), [Orimark](https://github.com/Oriwiki/php-namumark-mediawiki)
+원 구현체: [php-namumark](https://github.com/koreapyj/php-namumark), [Orimark](https://github.com/Oriwiki/php-namumark-mediawiki), [도다위키 namumark](https://github.com/dodawiki/mediawiki-namumark)
 
 ## 라이선스
 
